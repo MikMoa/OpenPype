@@ -132,6 +132,8 @@ def get_output_parameter(node):
             return node.parm("ar_ass_file")
     elif node_type == "Redshift_Proxy_Output":
         return node.parm("RS_archive_file")
+    elif node_type == "opengl":
+        return node.parm("picture")
 
     raise TypeError("Node type '%s' not supported" % node_type)
 
@@ -337,12 +339,12 @@ def imprint(node, data, update=False):
         templates.append(parm)
 
     parm_group = node.parmTemplateGroup()
-    parm_folder = parm_group.findFolder("Extra")
+    parm_folder = parm_group.findFolder("Publish Data")
 
     # if folder doesn't exist yet, create one and append to it,
     # else append to existing one
     if not parm_folder:
-        parm_folder = hou.FolderParmTemplate("folder", "Extra")
+        parm_folder = hou.FolderParmTemplate("folder", "Publish Data")
         parm_folder.setParmTemplates(templates)
         parm_group.append(parm_folder)
     else:
@@ -350,7 +352,7 @@ def imprint(node, data, update=False):
             parm_group.appendToFolder(parm_folder, template)
             # this is needed because the pointer to folder
             # is for some reason lost every call to `appendToFolder()`
-            parm_folder = parm_group.findFolder("Extra")
+            parm_folder = parm_group.findFolder("Publish Data")
 
     node.setParmTemplateGroup(parm_group)
 
