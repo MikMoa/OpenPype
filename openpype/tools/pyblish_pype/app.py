@@ -5,11 +5,13 @@ import sys
 import ctypes
 import platform
 import contextlib
+import logging
 
 from qtpy import QtCore, QtGui, QtWidgets
 
 from . import control, settings, util, window
 
+log = logging.getLogger(__name__)
 self = sys.modules[__name__]
 
 # Maintain reference to currently opened window
@@ -21,12 +23,12 @@ def application():
     app = QtWidgets.QApplication.instance()
 
     if not app:
-        print("Starting new QApplication..")
+        log.info("Starting new QApplication..")
         app = QtWidgets.QApplication(sys.argv)
         yield app
         app.exec_()
     else:
-        print("Using existing QApplication..")
+        log.info("Using existing QApplication..")
         yield app
         if os.environ.get("PYBLISH_GUI_ALWAYS_EXEC"):
             app.exec_()

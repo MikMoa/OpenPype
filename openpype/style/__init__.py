@@ -3,12 +3,14 @@ import copy
 import json
 import collections
 import six
+import logging
 
 from openpype import resources
 
 from .color_defs import parse_color
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
+log = logging.getLogger(__name__)
 
 
 class _Cache:
@@ -194,7 +196,7 @@ def _load_font():
                     font_id
                 )
                 loaded_fonts.extend(font_families)
-        print("Registered font families: {}".format(", ".join(loaded_fonts)))
+        log.info("Registered font families: {}".format(", ".join(loaded_fonts)))
 
 
 def load_stylesheet():

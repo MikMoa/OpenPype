@@ -140,12 +140,12 @@ def qt_app_context():
     app = QtWidgets.QApplication.instance()
 
     if not app:
-        print("Starting new QApplication..")
+        log.info("Starting new QApplication..")
         app = QtWidgets.QApplication(sys.argv)
         yield app
         app.exec_()
     else:
-        print("Using existing QApplication..")
+        log.info("Using existing QApplication..")
         yield app
 
 
